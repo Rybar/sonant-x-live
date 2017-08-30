@@ -160,14 +160,14 @@ var CGUI = function()
         instr.c = [];
         song.songData[i] = instr;
       }
-  
+
       // Patterns
       for (j = 0; j < 48; j++)
       {
         if (instr.p[j] === undefined)
           instr.p[j] = 0;
       }
-  
+
       // Columns
       for (j = 0; j < 10; j++)
       {
@@ -756,8 +756,9 @@ var CGUI = function()
     updateSongRanges();
 
     // Generate JS song data
-    var dataURI = "data:text/javascript;base64," + btoa(songToJSON(mSong, true));
-    window.open(dataURI);
+    //var dataURI = "data:text/javascript;base64," + btoa(songToJSON(mSong, true));
+    var newWindow = window.open();
+    newWindow.document.write('<code style="white-space: pre-wrap;">'+songToJSON(mSong, true));
     return false;
   };
 
@@ -772,8 +773,13 @@ var CGUI = function()
     delete instr.p;
     delete instr.c;
 
-    var dataURI = "data:text/javascript;base64," + btoa(JSON.stringify(instr, null, "    "));
-    window.open(dataURI);
+
+    var newWindow = window.open();
+    newWindow.document.write('<code style="white-space: pre-wrap;">'+JSON.stringify(instr, null, "    "));
+
+
+    //var dataURI = "data:text/javascript;base64," + btoa(JSON.stringify(instr, null, "    "));
+    //window.open(dataURI);
   };
 
   var exportURL = function(e)
@@ -2002,7 +2008,7 @@ var CGUI = function()
         }
         break;
 
-      case 46:  // DELETE
+      case 8:  // DELETE
         if (mEditMode === EDIT_SEQUENCE)
         {
           for (row = mSeqRow; row <= mSeqRow2; ++row)
